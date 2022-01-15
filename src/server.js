@@ -19,10 +19,10 @@ app.use(express.json());
 const mockDb = require('./mockDb');
 
 // Import routes
-const inventoryRoutes = require('./routes/inventory');
+const inventoryRoutes = require('./routes/items');
 
 // Mount routes
-app.use('/inventory', inventoryRoutes(mockDb));
+app.use('/items', inventoryRoutes(mockDb));
 
 // Home route
 app.get('/', (res, req) => {
@@ -31,5 +31,5 @@ app.get('/', (res, req) => {
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`Find Shelter API listening on port ${PORT}`);
+  console.log(`Inventory management API listening on port ${PORT}`);
 });

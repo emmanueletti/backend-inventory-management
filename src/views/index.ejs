@@ -1,16 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css"
-    />
-    <title>Inventory Management</title>
-  </head>
-  <body>
-    <%- include('./partials/_nav'); %>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css" />
+  <title>Inventory Management</title>
+</head>
+
+<body class="helvetica">
+    <div class="pa4">
+      <div class="overflow-auto">
+        <table class="f6 w-100 mw8 center" cellspacing="0">
+          <thead>
+            <tr class="stripe-dark">
+              <th class="fw6 tl pa3 bg-white">ID</th>
+              <th class="fw6 tl pa3 bg-white">Name</th>
+              <th class="fw6 tl pa3 bg-white">Price</th>
+              <th class="fw6 tl pa3 bg-white">Manage</th>
+              <th class="fw6 tl pa3 bg-white"></th>
+            </tr>
+          </thead>
+          <tbody class="lh-copy">
+            <% for (const item of items) { %>
+              <tr class="stripe-dark">
+                <td class="pa3">
+                  <%= item.id %>
+                </td>
+                <td class="pa3">
+                  <%= item.name %>
+                </td>
+                <td class="pa3">
+                  $<%= item.price / 100 %>
+                </td>
+                <td class="pa3">
+                    <a class="f6 link dim ph3 pv2 mb2 dib white bg-black" href="/inventory/new">Edit</a>
+
+                </td>
+                <td class="pa3">
+                    <a class="f6 link dim ph3 pv2 mb2 dib white bg-dark-red" href="#0">Delete</a>
+                </td>
+              </tr>
+              <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+
+</body>
+
 </html>
