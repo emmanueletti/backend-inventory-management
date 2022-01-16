@@ -1,1 +1,2 @@
 - add validation util functions
+- add comments

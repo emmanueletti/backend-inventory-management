@@ -9,9 +9,10 @@ const router = express.Router();
 module.exports = function (db) {
   // Browse all
   router.get('/', (req, res) => {
-    const data = db.getAll();
-    const templateVar = { items: data };
-    res.render('index.ejs', templateVar);
+    const activeItems = db.getAllActiveItems();
+    const deletedItems = db.getAllDeletedItems();
+    const templateVars = { activeItems, deletedItems };
+    res.render('index.ejs', templateVars);
   });
 
   // Read individual item
@@ -37,6 +38,20 @@ module.exports = function (db) {
     return res.send(editedItem);
   });
 
+  // Delete individual item
+  router.delete('/:id', (req, res) => {
+    const id = Number(req.params.id);
+    db.deleteItem(id, req.body?.deleteNotes);
+    return res.json({ message: `item with id ${id} is deleted` });
+  });
+
+  // re-active individual item
+  router.put('/:id/reactivate', (req, res) => {
+    const id = Number(req.params.id);
+    db.reactivateItem(id);
+    return res.json({ message: `item with id ${id} is reactivated` });
+  });
+
   // Create new item
   router.post('/', (req, res) => {
     const { name, price, description } = req.body;
@@ -48,11 +63,5 @@ module.exports = function (db) {
     res.send(newlyCreatedItem);
   });
 
-  // Delete individual item
-  router.delete('/:id', (req, res) => {
-    const id = Number(req.params.id);
-    db.deleteItem(id);
-    return res.json({ message: `item with id ${id} is deleted` });
-  });
   return router;
 };

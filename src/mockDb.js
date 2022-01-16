@@ -46,12 +46,16 @@ module.exports = {
     return this.data.filter((item) => item.id === id);
   },
 
-  getAll() {
+  getAllActiveItems() {
     return this.data.filter((item) => item.isActive);
   },
 
+  getAllDeletedItems() {
+    return this.data.filter((item) => !item.isActive);
+  },
+
   getActiveItem(id) {
-    return this.getAll().filter((item) => item.id === id);
+    return this.getAllActiveItems().filter((item) => item.id === id);
   },
 
   editItem(id, fieldsToUpdate) {
@@ -86,14 +90,27 @@ module.exports = {
     return newItem;
   },
 
-  deleteItem(id) {
-    const itemToDelete = this._getItem(id);
+  deleteItem(id, deleteNotes) {
+    const itemToDelete = this._getItem(id)[0];
     const itemToDeleteIndex = this._getItemIndex(id);
     const updatedItem = {
-      ...itemToDelete[0],
+      ...itemToDelete,
+      deleteNotes,
       isActive: false,
     };
 
     this.data.splice(itemToDeleteIndex, 1, updatedItem);
+  },
+
+  reactivateItem(id) {
+    const itemToReactivate = this._getItem(id)[0];
+    const itemToReactivateIndex = this._getItemIndex(id);
+    const updatedItem = {
+      ...itemToReactivate,
+      deleteNotes: '',
+      isActive: true,
+    };
+
+    this.data.splice(itemToReactivateIndex, 1, updatedItem);
   },
 };
