@@ -16,7 +16,7 @@ module.exports = function (db) {
 
   // Read individual item
   router.get('/:id', (req, res) => {
-    const id = req.params.id;
+    const id = Number(req.params.id);
     const requestedItem = db.getItem(id);
     if (!requestedItem.length) {
       return res.status(404).json({ error: 'item does not exist' });
@@ -26,14 +26,22 @@ module.exports = function (db) {
 
   // Edit individual item
   router.put('/:id', (req, res) => {
-    const id = req.params.id;
-    const { name, price, description } = req.body;
+    const id = Number(req.params.id);
     const editedItem = db.editItem(id, req.body);
     return res.send(editedItem);
   });
 
-  // Add new item
+  // Create new item
+  router.post('/', (req, res) => {
+    const newlyCreatedItem = db.createNewItem(req.body);
+    res.send(newlyCreatedItem);
+  });
 
   // Delete individual item
+  router.delete('/:id', (req, res) => {
+    const id = Number(req.params.id);
+    db.deleteItem(id);
+    return res.send('ok');
+  });
   return router;
 };

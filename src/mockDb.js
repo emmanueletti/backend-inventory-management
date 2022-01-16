@@ -1,7 +1,7 @@
 module.exports = {
   data: [
     {
-      id: '1',
+      id: 1,
       name: 'Leica M9',
       price: 900000,
       description:
@@ -10,7 +10,7 @@ module.exports = {
       deleteNotes: null,
     },
     {
-      id: '2',
+      id: 2,
       name: 'Fujifilm X100V',
       price: 180000,
       description:
@@ -19,7 +19,7 @@ module.exports = {
       deleteNotes: null,
     },
     {
-      id: '3',
+      id: 3,
       name: 'Canon 5D MK IV',
       price: 350000,
       description:
@@ -28,7 +28,7 @@ module.exports = {
       deleteNotes: null,
     },
     {
-      id: '4',
+      id: 4,
       name: 'Nikon D850',
       price: 400000,
       description:
@@ -39,11 +39,11 @@ module.exports = {
   ],
 
   getItem(id) {
-    return this.data.filter((item) => item.id === id.toString());
+    return this.data.filter((item) => item.id === id);
   },
 
   getItemIndex(id) {
-    return this.data.findIndex((item) => item.id === id.toString());
+    return this.data.findIndex((item) => item.id === id);
   },
 
   editItem(id, fieldsToUpdate) {
@@ -51,7 +51,7 @@ module.exports = {
     const itemToUpdate = this.getItem(id);
     const itemToUpdateIndex = this.getItemIndex(id);
 
-    if (!itemToUpdate.length) return null;
+    if (!itemToUpdate.length) return;
 
     const updatedItem = {
       id: itemToUpdate[0].id,
@@ -62,5 +62,18 @@ module.exports = {
 
     this.data.splice(itemToUpdateIndex, 1, updatedItem);
     return updatedItem;
+  },
+
+  createNewItem({ name, price, description }) {
+    const lastItemsId = this.data[this.data.length - 1].id;
+    const newItem = { id: lastItemsId + 1, name, price, description };
+    this.data.push(newItem);
+    return newItem;
+  },
+
+  deleteItem(id) {
+    const itemIndex = this.getItemIndex(id);
+    if (itemIndex === -1) return;
+    this.data.splice(itemIndex, 1);
   },
 };
