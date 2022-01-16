@@ -9,7 +9,7 @@ const router = express.Router();
 module.exports = function (db) {
   // Browse all
   router.get('/', (req, res) => {
-    const { data } = db;
+    const data = db.getAll();
     const templateVar = { items: data };
     res.render('index.ejs', templateVar);
   });
@@ -17,7 +17,7 @@ module.exports = function (db) {
   // Read individual item
   router.get('/:id', (req, res) => {
     const id = Number(req.params.id);
-    const requestedItem = db.getItem(id);
+    const requestedItem = db.getActiveItem(id);
     if (!requestedItem.length) {
       return res.status(404).json({ error: 'item does not exist' });
     }
@@ -41,7 +41,7 @@ module.exports = function (db) {
   router.delete('/:id', (req, res) => {
     const id = Number(req.params.id);
     db.deleteItem(id);
-    return res.send('ok');
+    return res.json({ message: `item with id ${id} is deleted` });
   });
   return router;
 };

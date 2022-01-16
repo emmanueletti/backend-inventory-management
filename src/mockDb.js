@@ -38,18 +38,26 @@ module.exports = {
     },
   ],
 
-  getItem(id) {
-    return this.data.filter((item) => item.id === id);
-  },
-
-  getItemIndex(id) {
+  _getItemIndex(id) {
     return this.data.findIndex((item) => item.id === id);
   },
 
+  _getItem(id) {
+    return this.filter((item) => item.id === id);
+  },
+
+  getAll() {
+    return this.data.filter((item) => item.isActive);
+  },
+
+  getActiveItem(id) {
+    return this.getAll().filter((item) => item.id === id);
+  },
+
   editItem(id, fieldsToUpdate) {
-    const { name, price, description } = fieldsToUpdate;
-    const itemToUpdate = this.getItem(id);
-    const itemToUpdateIndex = this.getItemIndex(id);
+    const { name, price, description, isActive } = fieldsToUpdate;
+    const itemToUpdate = this._getItem(id);
+    const itemToUpdateIndex = this._getItemIndex(id);
 
     if (!itemToUpdate.length) return;
 
@@ -58,6 +66,7 @@ module.exports = {
       name: name ?? itemToUpdate[0].name,
       price: price ?? itemToUpdate[0].price,
       description: description ?? itemToUpdate[0].description,
+      isActive: isActive ?? itemToUpdate[0].isActive,
     };
 
     this.data.splice(itemToUpdateIndex, 1, updatedItem);
@@ -66,14 +75,25 @@ module.exports = {
 
   createNewItem({ name, price, description }) {
     const lastItemsId = this.data[this.data.length - 1].id;
-    const newItem = { id: lastItemsId + 1, name, price, description };
+    const newItem = {
+      id: lastItemsId + 1,
+      name,
+      price,
+      description,
+      isActive: true,
+    };
     this.data.push(newItem);
     return newItem;
   },
 
   deleteItem(id) {
-    const itemIndex = this.getItemIndex(id);
-    if (itemIndex === -1) return;
-    this.data.splice(itemIndex, 1);
+    const itemToDelete = this._getItem(id);
+    const itemToDeleteIndex = this._getItemIndex(id);
+    const updatedItem = {
+      ...itemToDelete[0],
+      isActive: false,
+    };
+
+    this.data.splice(itemToDeleteIndex, 1, updatedItem);
   },
 };
