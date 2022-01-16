@@ -27,13 +27,24 @@ module.exports = function (db) {
   // Edit individual item
   router.put('/:id', (req, res) => {
     const id = Number(req.params.id);
-    const editedItem = db.editItem(id, req.body);
+    const { name, price, description } = req.body;
+    console.log(name, price, description);
+    const editedItem = db.editItem(id, {
+      name,
+      description,
+      price: Number(price) * 100,
+    });
     return res.send(editedItem);
   });
 
   // Create new item
   router.post('/', (req, res) => {
-    const newlyCreatedItem = db.createNewItem(req.body);
+    const { name, price, description } = req.body;
+    const newlyCreatedItem = db.createNewItem({
+      name,
+      description,
+      price: Number(price) * 100,
+    });
     res.send(newlyCreatedItem);
   });
 

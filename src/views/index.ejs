@@ -10,44 +10,121 @@
 </head>
 
 <body class="helvetica">
-    <div class="pa4">
-      <div class="overflow-auto">
-        <table class="f6 w-100 mw8 center" cellspacing="0">
-          <thead>
+  <!-- TABLE -->
+  <div class="pa4">
+    <div class="overflow-auto">
+      <h1>Inventory</h1>
+      <table class="f6 w-100 center" cellspacing="0">
+        <thead>
+          <tr class="stripe-dark">
+            <th class="fw6 tl pa3 bg-white">ID</th>
+            <th class="fw6 tl pa3 bg-white">Name</th>
+            <th class="fw6 tl pa3 bg-white">Price</th>
+            <th class="fw6 tl pa3 bg-white">Description</th>
+            <th class="fw6 tl pa3 bg-white">Manage</th>
+            <th class="fw6 tl pa3 bg-white"></th>
+          </tr>
+        </thead>
+        <tbody class="lh-copy">
+          <% for (const item of items) { %>
             <tr class="stripe-dark">
-              <th class="fw6 tl pa3 bg-white">ID</th>
-              <th class="fw6 tl pa3 bg-white">Name</th>
-              <th class="fw6 tl pa3 bg-white">Price</th>
-              <th class="fw6 tl pa3 bg-white">Manage</th>
-              <th class="fw6 tl pa3 bg-white"></th>
+              <td class="pa3">
+                <%= item.id %>
+              </td>
+              <td class="pa3">
+                <%= item.name %>
+              </td>
+              <td class="pa3">
+                $<%= item.price / 100 %>
+              </td>
+              <td class="pa3">
+                <%= item.description %>
+              </td>
+              <td class="pa3">
+                <a class="f6 link dim ph3 pv2 mb2 dib white bg-black" href="#" id="edit-btn">Edit</a>
+
+              </td>
+              <td class="pa3">
+                <a class="f6 link dim ph3 pv2 mb2 dib white bg-dark-red" href="#">Delete</a>
+              </td>
             </tr>
-          </thead>
-          <tbody class="lh-copy">
-            <% for (const item of items) { %>
-              <tr class="stripe-dark">
-                <td class="pa3">
-                  <%= item.id %>
-                </td>
-                <td class="pa3">
-                  <%= item.name %>
-                </td>
-                <td class="pa3">
-                  $<%= item.price / 100 %>
-                </td>
-                <td class="pa3">
-                    <a class="f6 link dim ph3 pv2 mb2 dib white bg-black" href="/inventory/new">Edit</a>
-
-                </td>
-                <td class="pa3">
-                    <a class="f6 link dim ph3 pv2 mb2 dib white bg-dark-red" href="#0">Delete</a>
-                </td>
-              </tr>
-              <% } %>
-          </tbody>
-        </table>
-      </div>
+            <% } %>
+        </tbody>
+      </table>
     </div>
+  </div>
+  <!-- DELETED ITEMS SECTION -->
 
+  <!-- CREATE NEW ITEMS FORM -->
+  <!-- <div  class="f6 w-100 center dn"> -->
+  <%- include('./partials/_editItemForm.ejs') %>
+    <!-- </div> -->
+    <!-- EDIT FORM -->
+
+
+    <!-- ADD DELETE COMMENTS FORM -->
+
+    <script>
+      const editBtns = document.querySelectorAll('#edit-btn').forEach((btn) => {
+        const children = btn.closest('tr').children
+
+        const id = children[0].textContent.trim()
+        const name = children[1].textContent.trim()
+        const price = children[2].textContent.trim().split('$')[1]
+        const description = children[3].textContent.trim()
+
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+
+          console.log('opening')
+          // show edit form
+          document.querySelector('#edit-form').classList.remove('dn')
+
+          const nameInput = document.querySelector('#edit-form input#name')
+          const priceInput = document.querySelector('#edit-form input#price')
+          const descriptionInput = document.querySelector('#edit-form textarea#description')
+
+          // populate default values
+          nameInput.value = name
+          priceInput.value = price
+          descriptionInput.value = description
+
+          // set up submit event
+          const form = document.querySelector('#edit-form')
+          form.addEventListener('submit', (e) => {
+            e.preventDefault()
+            console.log('clicks')
+            // const nameInput = document.querySelector('#edit-form input#name')
+            // const priceInput = document.querySelector('#edit-form input#price')
+            // const descriptionInput = document.querySelector('#edit-form textarea#description')
+
+            console.log('inputs: ')
+            console.log(nameInput.value)
+            console.log(priceInput.value.trim())
+            console.log(typeof descriptionInput.value.trim())
+
+            const config = {
+              method:'PUT',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                name: nameInput.value.trim(), 
+                price: priceInput.value.trim(), 
+                description: descriptionInput.value.trim()
+              })
+            }
+          
+            fetch(`/items/${id}`, config)
+              .then((resp) => resp.json())
+              .then((data) => {
+                location.reload();
+              }).catch((err) => console.log(err))
+          })
+
+        })
+      })
+    </script>
 
 </body>
 

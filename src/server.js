@@ -12,7 +12,6 @@ app.set('views', path.join(__dirname, '../src/views'));
 
 // Middleware
 app.use(morgan('dev'));
-app.use(express.urlencoded({ extended: false }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -26,7 +25,7 @@ app.use('/items', inventoryRoutes(mockDb));
 
 // Home route
 app.get('/', (res, req) => {
-  req.redirect('/inventory');
+  req.redirect('/items');
 });
 
 // Start server

@@ -43,7 +43,7 @@ module.exports = {
   },
 
   _getItem(id) {
-    return this.filter((item) => item.id === id);
+    return this.data.filter((item) => item.id === id);
   },
 
   getAll() {
