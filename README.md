@@ -1,2 +1,3 @@
 - add validation util functions
 - add comments
+- move edit, create, delete forms to top of the page where people can see it
