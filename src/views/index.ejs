@@ -10,6 +10,11 @@
 </head>
 
 <body class="helvetica">
+  <!-- FORMS -->
+   <%- include('./partials/_editForm.ejs') %>
+    <%- include('./partials/_createForm.ejs') %>
+      <%- include('./partials/_deleteForm.ejs') %>
+      
   <!-- TABLE -->
   <div class="pa4 mw8 center">
     <div class="overflow-auto">
@@ -98,18 +103,16 @@
 
   </div>
 
-  <%- include('./partials/_editForm.ejs') %>
-    <%- include('./partials/_createForm.ejs') %>
-      <%- include('./partials/_deleteForm.ejs') %>
+ 
 
         <!-- ADD DELETE COMMENTS FORM -->
 
         <!-- SCRIPTS -->
-        <script defer src="./scripts/helperFunctions.js"></script>
-        <script defer src="./scripts/editItems.js"></script>
-        <script defer src="./scripts/createItems.js"></script>
-        <script defer src="./scripts/deleteItems.js"></script>
-        <script defer src="./scripts/reactivateItems.js"></script>
+        <script defer src="/scripts/helperFunctions.js"></script>
+        <script defer src="/scripts/editItems.js"></script>
+        <script defer src="/scripts/createItems.js"></script>
+        <script defer src="/scripts/deleteItems.js"></script>
+        <script defer src="/scripts/reactivateItems.js"></script>
 
 </body>
 
