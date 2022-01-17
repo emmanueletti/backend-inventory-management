@@ -22,10 +22,10 @@ cd backend-inventory-management
 npm install
 ```
 
-- Run the development server
+- Start up the server
 
 ```bash
-npm run local
+npm start
 ```
 
 - Visit localhost:8080 in the browser to interact with the app
