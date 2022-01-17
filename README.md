@@ -6,11 +6,11 @@ A RESTful API with a visual dashboard that allows users to Create, Edit, Delete,
 
 Users are able to add deletion comments when deleting items. As well as re-activate any items deleted.
 
-## Get Started
+## Getting Started
 
 - Make sure the latest version of Node is installed
 - Fork and clone the project
-- cd into the project folder
+- Enter into the project folder
 
 ```bash
 cd backend-inventory-management
