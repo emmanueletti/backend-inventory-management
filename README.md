@@ -25,7 +25,7 @@ npm install
 - Run the development server
 
 ```bash
-npm run dev-start
+npm run local
 ```
 
 - Visit localhost:8080 in the browser to interact with the app
