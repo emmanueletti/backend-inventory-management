@@ -8,7 +8,7 @@ Users are able to add deletion comments when deleting items. As well as re-activ
 
 ## Getting Started
 
-- Make sure the latest version of Node and NPM installed is installed
+- Make sure the latest version of Node and NPM installed installed
 - Fork and clone the project
 - Enter into the project folder
 
@@ -51,3 +51,4 @@ npm start
 - EJS
 - Express
 - Node
+- NPM
