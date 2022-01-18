@@ -16,13 +16,11 @@ app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-const mockDb = require('./mockDb');
-
 // Import routes
-const inventoryRoutes = require('./routes/items');
+const itemsRoutes = require('./routes/itemsRoutes');
 
 // Mount routes
-app.use('/items', inventoryRoutes(mockDb));
+app.use('/items', itemsRoutes());
 
 // Home route
 app.get('/', (res, req) => {

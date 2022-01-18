@@ -9,7 +9,6 @@ document.querySelectorAll('#edit-btn').forEach((btn) => {
   btn.addEventListener('click', (e) => {
     e.preventDefault();
 
-    console.log('opening');
     // show edit form
     document.querySelector('#delete-form').classList.add('dn');
     document.querySelector('#create-form').classList.add('dn');

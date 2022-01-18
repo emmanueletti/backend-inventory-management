@@ -2,7 +2,6 @@ document
   .querySelector('#create-new-item-btn')
   .addEventListener('click', (e) => {
     e.preventDefault();
-    console.log('clicks');
 
     // show create form
     document.querySelector('#delete-form').classList.add('dn');
@@ -19,7 +18,6 @@ document
         '#create-form textarea#description'
       );
 
-      // remove to validation helper function
       if (!nameInput.value) {
         nameInput.classList.add('b--dark-red');
       } else {

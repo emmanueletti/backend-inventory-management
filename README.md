@@ -30,14 +30,24 @@ npm start
 
 - Visit localhost:8080 in the browser to interact with the app
 
+## To Add Additional Resources & Features
+
+### New Features for Items Resource
+
+- extend the itemsRoutes with the relevant API endpoint
+- extend the itemsController with the logic to handle the endpoint
+- extend the itemsModel with logic to manipulate "database" and provide requeted data
+
+### New Resources
+
+- create a new route file in routes folder
+  - import the file into server.js for us
+- create a new resource controller file with logic to handle CRUD operations
+- create a new resources models file with logic to handle database requests
+
 ## Dependencies
 
 - Tachyons
 - EJS
 - Express
 - Node
-
-TODO:
-
-- add util functions to validateInputs, saveUsers, etc in seperate controller folder / section
-- add comments

@@ -7,7 +7,6 @@ document.querySelectorAll('#delete-btn').forEach((btn) => {
     e.preventDefault();
 
     // show edit form
-    // move to toggle helper function
     document.querySelector('#edit-form').classList.add('dn');
     document.querySelector('#create-form').classList.add('dn');
     document.querySelector('#delete-form').classList.remove('dn');
