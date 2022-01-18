@@ -16,7 +16,7 @@ Users are able to add deletion comments when deleting items. As well as re-activ
 cd backend-inventory-management
 ```
 
-- install all dependecies
+- Install all dependecies
 
 ```bash
 npm install
